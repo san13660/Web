@@ -7,12 +7,31 @@
             const button = document.createElement("button")
             button.append("Enviar")
 
+            textarea.setAttribute("maxlength", "140")
+            
+            messages.style = `
+                word-wrap: break-word;
+                width: 90%;
+            `
+
+            textarea.style = `
+                flex: 0 0 80%;
+            `
+
+            button.style = `
+                flex: 0 0 20%;
+            `
+
             document.body.append(messages)
             sendContainer.append(textarea)
             sendContainer.append(button)
 
             sendContainer.style = `
                 display: flex;
+                position: fixed; 
+                bottom: 0;
+                left: 0;
+                right: 0;
             `
 
             document.body.append(sendContainer)
@@ -29,10 +48,40 @@
                         const strong = document.createElement("strong")
                         strong.append(element.username + ': ')
                         li.append(strong)
-                        li.append(element.chatmessage)
+                        li.append(parseMessage(element.chatmessage))
                         messages.append(li)
                     })
                 })
+            }
+
+            function parseMessage(message){
+                var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi
+                var imageExpression = /([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i
+                var regexLink = new RegExp(expression)
+                var regexImage = new RegExp(imageExpression)
+
+                if(message.match(regexImage)) {
+                    const img = document.createElement('img')
+                    img.setAttribute("src", message)
+                    img.style = `
+                        max-width:30%;
+                    `
+                    return img
+                }
+                else if (message.match(regexLink)) {
+                    const iframe = document.createElement('iframe')
+                    iframe.setAttribute("src", message)
+                    iframe.style = `
+                        width:85%;
+                        height:30%;
+                    `
+                    //const a = document.createElement('a')
+                    //a.setAttribute("href", message)
+                    //a.append(message)
+                    return iframe
+                }else{
+                    return message
+                }
             }
             
 
@@ -42,7 +91,7 @@
                 fetch('http://msdeus.site:7000', {
                     method: 'POST',
                     body: `{
-                        "username": "anonimo",
+                        "username": "oaisd",
                         "chatmessage": "${textarea.value.trim()}"
                     }`
                 }).then(() => {
@@ -51,9 +100,15 @@
                 })
             }
 
-            setInterval(getMessage, 1000)
+            //setInterval(getMessage, 1000)
 
-            button.on
+            textarea.addEventListener("keydown", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault()
+                    button.click()
+                    textarea.value = ""
+                }
+            })
         </script>
     </body>
 </html>
