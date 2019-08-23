@@ -1,0 +1,52 @@
+<html>
+    <body>
+        <script>
+            class MyButton{
+                constructor(text){
+                    this.text = text
+                }
+
+                handleClick(callback){
+                    alert('You pressed ${this.text}')
+                    callback()
+                }
+
+                render(parent, props){
+                    const {afterClick, color} = props
+                    const button = document.createElement("button")
+                    button.append(this.text)
+
+                    button.style.padding = "20px"
+                    button.style.backgroundColor = color
+                    button.onclick = this.handleClick.bind(this, afterClick)
+
+                    parent.append(button)
+                }
+            }    
+
+            class App{
+                goToGoogle(){
+                    window.location = "http://google.com"
+                }
+
+                changeOtherButton(){
+                    button1.text = "nuevo texto"
+                }
+
+                render(parent){
+                    const button1 = new MyButton("Hola")
+                    const button2 = new MyButton("Adios")
+
+                    const main = document.createElement("main")
+                    button1.render(main, { afterClick:this.goToGoogle, color:"pink"})
+                    button2.render(main, { afterClick:this.goToGoogle, color:"red"})
+
+                    parent.append(main)
+                }
+            }
+
+            const app = new App()
+            app.render(document.body)
+        </script>
+    </body>
+</html>

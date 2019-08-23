@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    </head>
+
+    <body>
+        <div id="root"></div>
+
+        <script type="text/babel">
+            class MyButton extends React.Component
+            {
+                constructor(props){
+                    super()
+                    this.handleClick = this.handleClick.bind(this)
+
+                    this.state = {
+                        text: props.text
+                    }
+                }
+                handleClick(callback){
+                    alert(this.props.text)
+
+                    callback()
+                }
+                render(){
+                    return{
+                        <button onClick={this.handleClick}>
+                            {this.props.text}
+                        </button>
+                    }
+                }
+            }  
+
+            class App extends React.Component
+            {
+                constructor(props){
+                    super(props)
+                    this.state = {
+                        button1Text: "Hello"
+                    }
+                }
+                changeButtonText(){
+                    this.setState({
+                        button1Text: "Laliasjkdn"
+                    })
+                }
+
+                render(){
+                    return{
+                        <main>
+                            <MyButton text={this.state.buttonText} />
+                            <MyButton text="Adoi", afterClick={this.changeButtonText.bind(this)} />
+                        </main>
+                    }
+                }
+            }    
+            React.DOM.render{
+                <App />
+                document.getElementById("root")
+            }    
+        </script>
+    </body>
+</html>

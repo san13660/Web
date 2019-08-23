@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>  
+  <body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+      class Enemy extends React.Component {
+        render() {
+          const style = {
+            backgroundColor: 'red',
+            width: '40px',
+            height: '40px',
+            position: 'absolute',
+            top: `${this.props.enemyPosition.y}px`,
+            left: `${this.props.enemyPosition.x}px`
+          }
+          return <div style={style} />
+        }
+      }
+      
+      class Bullet extends React.Component {
+        render() {
+          const style = {
+            backgroundColor: 'yellow',
+            width: '40px',
+            height: '40px',
+            position: 'absolute',
+            top: `${this.props.bulletPosition.y}px`,
+            left: `${this.props.bulletPosition.x}px`
+          }
+          return <div style={style} />
+        }
+      }
+      
+      class Player extends React.Component {
+        render() {
+          const style = {
+            backgroundColor: 'green',
+            width: '40px',
+            height: '40px',
+            position: 'absolute',
+            top: `${this.props.playerPosition.y}px`,
+            left: `${this.props.playerPosition.x}px`
+          }
+          return <div style={style} />
+        }
+      }
+      
+      class Game extends React.Component {
+        constructor(props) {
+          super(props)
+          
+          this.state = {
+            enemy: {
+              x: 20,
+              y: 20
+            },
+            player: {
+              x: 180,
+              y: 320
+            },
+            bullet: {
+              x: 1000,
+              y: 360
+            }
+          }
+        }
+        
+        componentDidMount() {
+            const frame = () => {
+              if (this.state.enemy.x >= 340 || this.state.enemy.x < 20) { 
+                this.setState({
+                  enemy: {
+                    x: 20,
+                    y: this.state.enemy.y + 10
+                  }
+                })
+              } else {
+                this.setState({
+                  enemy: {
+                    x: this.state.enemy.x + 2,
+                    y: this.state.enemy.y
+                  }
+                })
+              }
+              
+              this.setState({
+                bullet: {
+                  x: this.state.bullet.x,
+                  y: this.state.bullet.y - 5
+                }
+              })
+              
+              
+          
+          if (!(
+              this.state.enemy.x + 40 < this.state.bullet.x || 
+              this.state.enemy.y + 40 < this.state.bullet.y || 
+              this.state.enemy.x > this.state.bullet.x + 40 || 
+              this.state.enemy.y > this.state.bullet.y + 40
+          )) {
+            alert('You win!')
+          }
+              
+              requestAnimationFrame(frame)
+            }
+            
+            requestAnimationFrame(frame)
+        }
+        
+        handleKeyDown(e) {
+          if (e.key == 'd') {
+              this.setState({
+                player: {
+                  x: this.state.player.x + 5,
+                  y: 320
+                }
+              })
+          }
+          
+          if (e.key == 'a') {
+              this.setState({
+                player: {
+                  x: this.state.player.x - 5,
+                  y: 320
+                }
+              })
+          }
+          
+          
+          if (e.key == 'w') {
+              this.setState({
+                bullet: {
+                  x: this.state.player.x,
+                  y: 320
+                }
+              })
+          }
+          
+        }
+        
+        render() {
+          const style = {
+            backgroundColor: 'purple',
+            width: '400px',
+            height: '400px',
+            position: 'relative'
+          }
+          return (
+            <div style={style} onKeyPress={this.handleKeyDown.bind(this)} tabIndex={0}>
+              <Enemy enemyPosition={this.state.enemy} />
+              <Bullet bulletPosition={this.state.bullet} />
+              <Player playerPosition={this.state.player} />
+            </div>
+          )
+        }
+      }
+      
+      ReactDOM.render(
+        <Game />,
+        document.getElementById('root')
+      )
+    </script>
+  </body>
+</html>
