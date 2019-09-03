@@ -11,44 +11,29 @@
     
     <script type="text/babel">
       class Card extends React.Component {
+        constructor(props) {
+          super(props)
+
+          this.state = {
+            backgroundColor: 'red'
+          }
+        }
+
         render() {
-          const style = {
-            backgroundColor: 'red',
+          const onItemClick = ({event}) => {
+            this.state.backgroundColor = 'blue';
+          }
+
+          let style = {
+            backgroundColor: this.state.backgroundColor,
             width: '40px',
             height: '40px',
             position: 'absolute',
             top: `${this.props.cardPosition.y}px`,
             left: `${this.props.cardPosition.x}px`
           }
-          return <div style={style} />
-        }
-      }
-      
-      class Bullet extends React.Component {
-        render() {
-          const style = {
-            backgroundColor: 'yellow',
-            width: '40px',
-            height: '40px',
-            position: 'absolute',
-            top: `${this.props.bulletPosition.y}px`,
-            left: `${this.props.bulletPosition.x}px`
-          }
-          return <div style={style} />
-        }
-      }
-      
-      class Player extends React.Component {
-        render() {
-          const style = {
-            backgroundColor: 'green',
-            width: '40px',
-            height: '40px',
-            position: 'absolute',
-            top: `${this.props.playerPosition.y}px`,
-            left: `${this.props.playerPosition.x}px`
-          }
-          return <div style={style} />
+
+          return <div style={style} onClick={onItemClick}/>
         }
       }
       
@@ -146,27 +131,27 @@
         }
         
         render() {
-            const style = {
-                backgroundColor: 'black',
-                width: '400px',
-                height: '400px',
-                position: 'relative'
-            }
+          const style = {
+              backgroundColor: 'black',
+              width: '400px',
+              height: '400px',
+              position: 'relative'
+          }
 
-            const items = []
+          const items = []
 
-            for (var i=0; i<5; i++) {
-                const things = {
-                    x: 50 * i,
-                    y: 50
-                }
-                items.push(<Card cardPosition={things} />)
+          for (let i=1; i<5; i++) {
+            for (let j=1; j<5; j++) {
+              let things = {
+                x: 50 * j,
+                y: 50 * i
             }
+              items.push(<Card cardPosition={things} />)
+            }
+          }
           return (
             <div style={style} onKeyPress={this.handleKeyDown.bind(this)} tabIndex={0}>
               {items}
-              <Bullet bulletPosition={this.state.bullet} />
-              <Player playerPosition={this.state.player} />
             </div>
           )
         }
