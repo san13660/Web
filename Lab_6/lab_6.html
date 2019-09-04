@@ -13,27 +13,23 @@
       class Card extends React.Component {
         constructor(props) {
           super(props)
-
-          this.state = {
-            backgroundColor: 'red'
-          }
         }
 
         render() {
-          const onItemClick = ({event}) => {
-            this.state.backgroundColor = 'blue';
-          }
-
           let style = {
-            backgroundColor: this.state.backgroundColor,
-            width: '40px',
-            height: '40px',
+            backgroundColor: this.props.cardData.backgroundColor,
+            width: '80px',
+            height: '80px',
             position: 'absolute',
-            top: `${this.props.cardPosition.y}px`,
-            left: `${this.props.cardPosition.x}px`
+            top: `${this.props.cardData.y}px`,
+            left: `${this.props.cardData.x}px`
           }
 
-          return <div style={style} onClick={onItemClick}/>
+          const g = {
+            index: this.props.cardData.index
+          }
+
+          return <div style={style} onClick={this.props.function.bind(null, g)}/>
         }
       }
       
@@ -41,57 +37,27 @@
         constructor(props) {
           super(props)
           
-          this.state = {
-            enemy: {
-              x: 20,
-              y: 20
-            },
-            player: {
-              x: 180,
-              y: 320
-            },
-            bullet: {
-              x: 1000,
-              y: 360
+          let cardst = []
+
+          for (let i=0; i<4; i++) {
+            for (let j=0; j<4; j++) {
+              const things = {
+                index: (i*4)+j,
+                backgroundColor: 'red',
+                x: 100 * j,
+                y: 100 * i
+              }
+              cardst.push(things)
             }
+          }
+
+          this.state = {
+            cards: cardst
           }
         }
         
         componentDidMount() {
             const frame = () => {
-              if (this.state.enemy.x >= 340 || this.state.enemy.x < 20) { 
-                this.setState({
-                  enemy: {
-                    x: 20,
-                    y: this.state.enemy.y + 10
-                  }
-                })
-              } else {
-                this.setState({
-                  enemy: {
-                    x: this.state.enemy.x + 2,
-                    y: this.state.enemy.y
-                  }
-                })
-              }
-              
-              this.setState({
-                bullet: {
-                  x: this.state.bullet.x,
-                  y: this.state.bullet.y - 5
-                }
-              })
-              
-              
-          
-          if (!(
-              this.state.enemy.x + 40 < this.state.bullet.x || 
-              this.state.enemy.y + 40 < this.state.bullet.y || 
-              this.state.enemy.x > this.state.bullet.x + 40 || 
-              this.state.enemy.y > this.state.bullet.y + 40
-          )) {
-            alert('You win!')
-          }
               
               requestAnimationFrame(frame)
             }
@@ -131,6 +97,8 @@
         }
         
         render() {
+          let items = []
+
           const style = {
               backgroundColor: 'black',
               width: '400px',
@@ -138,16 +106,17 @@
               position: 'relative'
           }
 
-          const items = []
+          const onItemClick = (p) => {
+            let cardst = this.state.cards
+            cardst[p.index].backgroundColor = 'blue'
+            this.setState({
+              cards: cardst
+            })
+          }
 
-          for (let i=1; i<5; i++) {
-            for (let j=1; j<5; j++) {
-              let things = {
-                x: 50 * j,
-                y: 50 * i
-            }
-              items.push(<Card cardPosition={things} />)
-            }
+
+          for (let i=0; i<Object.keys(this.state.cards).length; i++) {
+            items.push(<Card cardData={this.state.cards[i]} function={onItemClick} />)
           }
           return (
             <div style={style} onKeyPress={this.handleKeyDown.bind(this)} tabIndex={0}>
