@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Hello!</title>
+    <title>Memoria</title>
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -10,6 +10,7 @@
     <div id="root"></div>
     
     <script type="text/babel">
+
       class Card extends React.Component {
         constructor(props) {
           super(props)
@@ -29,25 +30,34 @@
             index: this.props.cardData.index
           }
 
-          return <div style={style} onClick={this.props.function.bind(null, g)}/>
+          return <div style={style} onClick={this.props.function.bind(null, g)}>
+                    <div style={{margin: 'auto'}}>
+                      {this.props.cardData.value}
+                    </div>
+                  </div>
         }
       }
       
       class Game extends React.Component {
         constructor(props) {
           super(props)
-          
+
           let cardst = []
+
+          let iconsLeft = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7]
 
           for (let i=0; i<4; i++) {
             for (let j=0; j<4; j++) {
+              let iconIndex = Math.floor(Math.random() * iconsLeft.length)
               const things = {
                 index: (i*4)+j,
                 backgroundColor: 'red',
                 x: 100 * j,
-                y: 100 * i
+                y: 100 * i,
+                value: iconsLeft[iconIndex]
               }
               cardst.push(things)
+              iconsLeft.splice(iconIndex, 1);
             }
           }
 
@@ -55,6 +65,8 @@
             cards: cardst
           }
         }
+
+        
         
         componentDidMount() {
             const frame = () => {
