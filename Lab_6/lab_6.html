@@ -5,6 +5,7 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   </head>  
   <body>
     <div id="root"></div>
@@ -30,7 +31,7 @@
             index: this.props.cardData.index
           }
 
-          return <div style={style} onClick={this.props.function.bind(null, g)}>
+          return <div className={this.props.cardData.animation} style={style} onClick={this.props.function.bind(null, g)}>
                     <div style={{margin: 'auto'}}>
                       {this.props.cardData.value}
                     </div>
@@ -52,6 +53,7 @@
               const things = {
                 index: (i*4)+j,
                 backgroundColor: 'red',
+                animation: '',
                 x: 100 * j,
                 y: 100 * i,
                 value: iconsLeft[iconIndex]
@@ -62,11 +64,23 @@
           }
 
           this.state = {
-            cards: cardst
+            cards: cardst,
+            selectedCardValue: -1
+          }
+        } 
+
+        selectCard(value){
+          if(this.state.selectedCardValue == -1){
+            this.setState({selectedCardValue: value})
+            return 
+          }else{
+            if(this.state.selectedCardValue == value){
+              return 1
+            }else{
+              return 2
+            }
           }
         }
-
-        
         
         componentDidMount() {
             const frame = () => {
@@ -75,37 +89,6 @@
             }
             
             requestAnimationFrame(frame)
-        }
-        
-        handleKeyDown(e) {
-          if (e.key == 'd') {
-              this.setState({
-                player: {
-                  x: this.state.player.x + 5,
-                  y: 320
-                }
-              })
-          }
-          
-          if (e.key == 'a') {
-              this.setState({
-                player: {
-                  x: this.state.player.x - 5,
-                  y: 320
-                }
-              })
-          }
-          
-          
-          if (e.key == 'w') {
-              this.setState({
-                bullet: {
-                  x: this.state.player.x,
-                  y: 320
-                }
-              })
-          }
-          
         }
         
         render() {
@@ -121,6 +104,7 @@
           const onItemClick = (p) => {
             let cardst = this.state.cards
             cardst[p.index].backgroundColor = 'blue'
+            cardst[p.index].animation = 'animated flipInY'
             this.setState({
               cards: cardst
             })
