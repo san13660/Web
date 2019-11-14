@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <head>
   <title>Hello!</title>
@@ -12,6 +13,20 @@
   <div id="root"></div>
 
   <script type="text/babel">
+=======
+  <head>
+    <title>Memoria</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  </head>  
+  <body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+
+>>>>>>> 4b121e262008f06362ae2b3cbc5d6aece8112832
       class Card extends React.Component {
         constructor(props) {
           super(props)
@@ -31,30 +46,54 @@
             index: this.props.cardData.index
           }
 
-          return <div style={style} onClick={this.props.function.bind(null, g)}/>
+          return <div className={this.props.cardData.animation} style={style} onClick={this.props.function.bind(null, g)}>
+                    <div style={{margin: 'auto'}}>
+                      {this.props.cardData.value}
+                    </div>
+                  </div>
         }
       }
       
       class Game extends React.Component {
         constructor(props) {
           super(props)
-          
+
           let cardst = []
+
+          let iconsLeft = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7]
 
           for (let i=0; i<4; i++) {
             for (let j=0; j<4; j++) {
+              let iconIndex = Math.floor(Math.random() * iconsLeft.length)
               const things = {
                 index: (i*4)+j,
                 backgroundColor: 'red',
+                animation: '',
                 x: 100 * j,
-                y: 100 * i
+                y: 100 * i,
+                value: iconsLeft[iconIndex]
               }
               cardst.push(things)
+              iconsLeft.splice(iconIndex, 1);
             }
           }
 
           this.state = {
-            cards: cardst
+            cards: cardst,
+            selectedCardValue: -1
+          }
+        } 
+
+        selectCard(value){
+          if(this.state.selectedCardValue == -1){
+            this.setState({selectedCardValue: value})
+            return 
+          }else{
+            if(this.state.selectedCardValue == value){
+              return 1
+            }else{
+              return 2
+            }
           }
         }
         
@@ -65,37 +104,6 @@
             }
             
             requestAnimationFrame(frame)
-        }
-        
-        handleKeyDown(e) {
-          if (e.key == 'd') {
-              this.setState({
-                player: {
-                  x: this.state.player.x + 5,
-                  y: 320
-                }
-              })
-          }
-          
-          if (e.key == 'a') {
-              this.setState({
-                player: {
-                  x: this.state.player.x - 5,
-                  y: 320
-                }
-              })
-          }
-          
-          
-          if (e.key == 'w') {
-              this.setState({
-                bullet: {
-                  x: this.state.player.x,
-                  y: 320
-                }
-              })
-          }
-          
         }
         
         render() {
@@ -111,6 +119,7 @@
           const onItemClick = (p) => {
             let cardst = this.state.cards
             cardst[p.index].backgroundColor = 'blue'
+            cardst[p.index].animation = 'animated flipInY'
             this.setState({
               cards: cardst
             })
