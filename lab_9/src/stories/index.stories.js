@@ -25,6 +25,7 @@ storiesOf("Input Title", module)
     .addParameters({
         backgrounds: [
             { name: 'black', value: '#000000', default: true },
+            { name: 'gray', value: '#333333'},
             { name: 'white', value: '#FFFFFF' },
         ],
     })
