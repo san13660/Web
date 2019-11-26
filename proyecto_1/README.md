@@ -11,6 +11,8 @@ Yo escogí la página de inicio de Spotify para Guatemala.
  * Sass
  * Babel
  * File-Loader
+ * Sass-Loader
+ * Css-Loader
  * Style-Loader
  * React-SVG-Loader
 
