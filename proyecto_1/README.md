@@ -1,7 +1,7 @@
 # Proyecto 1 - Página Web (Spotify)
 
 ## Descripción
-Este proyecto consistió en replicar una página web cualquiera, en la cual había que prestar atención principalmente al estilo.
+Este proyecto consistió en replicar una página web cualquiera (sin usar boiler-plates), prestando especial atención al estilo.
 
 Yo escogí la página de inicio de Spotify para Guatemala.
 
