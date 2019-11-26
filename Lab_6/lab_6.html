@@ -7,6 +7,8 @@
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
 
 <body>
@@ -20,22 +22,34 @@
         }
 
         render() {
+          let icon = ""
+          let backgroundColor = "#29335C"
+          let backgroundImage = 'url(pattern.png)'
+          if(this.props.cardData.showIcon === true){
+            icon = this.props.cardData.value
+            backgroundColor = "#FC5130"
+            backgroundImage = ""
+          }
+
           let style = {
-            backgroundColor: this.props.cardData.backgroundColor,
-            width: '80px',
-            height: '80px',
+            width: '150px',
+            height: '175px',
             position: 'absolute',
             top: `${this.props.cardData.y}px`,
-            left: `${this.props.cardData.x}px`
+            left: `${this.props.cardData.x}px`,
+            margin: '25px',
+            backgroundImage: backgroundImage,
+            backgroundColor: backgroundColor
           }
 
           const g = {
-            index: this.props.cardData.index
+            index: this.props.cardData.index,
+            found: this.props.cardData.found
           }
 
           return <div className={this.props.cardData.animation} style={style} onClick={this.props.function.bind(null, g)}>
-                    <div style={{margin: 'auto'}}>
-                      {this.props.cardData.value}
+                    <div style={{textAlign: 'center', marginTop: '25%'}}>
+                      <i style={{fontSize: '100px'}} className="material-icons">{icon}</i>
                     </div>
                   </div>
         }
@@ -47,7 +61,7 @@
 
           let cardst = []
 
-          let iconsLeft = [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7]
+          let iconsLeft = ["monetization_on","monetization_on","shopping_cart","shopping_cart","stars","stars","thumb_up","thumb_up","watch_later","watch_later","language","language","face","face","favorite","favorite"]
 
           for (let i=0; i<4; i++) {
             for (let j=0; j<4; j++) {
@@ -56,9 +70,10 @@
                 index: (i*4)+j,
                 backgroundColor: 'red',
                 animation: '',
-                x: 100 * j,
-                y: 100 * i,
-                value: iconsLeft[iconIndex]
+                x: 175 * j,
+                y: 200 * i,
+                value: iconsLeft[iconIndex],
+                found: false
               }
               cardst.push(things)
               iconsLeft.splice(iconIndex, 1);
@@ -67,22 +82,11 @@
 
           this.state = {
             cards: cardst,
-            selectedCardValue: -1
+            selectedCardIndex: -1,
+            cardsRight: 0,
+            tries: 0
           }
         } 
-
-        selectCard(value){
-          if(this.state.selectedCardValue == -1){
-            this.setState({selectedCardValue: value})
-            return 
-          }else{
-            if(this.state.selectedCardValue == value){
-              return 1
-            }else{
-              return 2
-            }
-          }
-        }
         
         componentDidMount() {
             const frame = () => {
@@ -92,24 +96,93 @@
             
             requestAnimationFrame(frame)
         }
+
+        failDelay(index1, index2){
+          setTimeout(()=>{
+            setTimeout(()=>{
+              setTimeout(()=>{
+                let cards2 = this.state.cards
+                cards2[index1].animation = ''
+                cards2[index2].animation = ''
+                this.setState({
+                  cards: cards2
+                })
+              },700)
+              let cards2 = this.state.cards
+              cards2[index1].showIcon = false
+              cards2[index1].animation = 'animated flipInY'
+              cards2[index2].showIcon = false
+              cards2[index2].animation = 'animated flipInY'
+              this.setState({
+                cards: cards2,
+              })
+            },300)
+                  let cards2 = this.state.cards
+                  cards2[index1].animation = ''
+                  cards2[index2].animation = ''
+                  this.setState({
+                    cards: cards2,
+                  })
+                },700)
+        }
         
         render() {
           let items = []
 
           const style = {
-              backgroundColor: 'black',
-              width: '400px',
-              height: '400px',
-              position: 'relative'
+              backgroundColor: '#A7A2A9',
+              width: '725px',
+              height: '825px',
+              position: 'relative',
+              margin: 'auto',
+              marginTop: '25px'
           }
 
           const onItemClick = (p) => {
+            if(p.found){
+              return
+            }
             let cardst = this.state.cards
-            cardst[p.index].backgroundColor = 'blue'
-            cardst[p.index].animation = 'animated flipInY'
+            let selectedCardIndex = this.state.selectedCardIndex
+            let cardsRight = this.state.cardsRight
+            let tries = this.state.tries
+            if(selectedCardIndex > -1){
+              tries += 1
+              if(this.state.cards[selectedCardIndex].value == this.state.cards[p.index].value){
+                cardst[p.index].showIcon = true
+                cardst[p.index].animation = 'animated flipInY'
+                cardst[p.index].found = true
+                cardst[selectedCardIndex].found = true
+                selectedCardIndex = -1
+                cardsRight += 2
+
+                if(cardsRight > 15){
+                  setTimeout(()=>{
+                    alert("¡GANASTE!")
+                  }, 800)
+                  
+                }
+              } else{
+                cardst[p.index].showIcon = true
+                cardst[p.index].animation = 'animated flipInY'
+                
+                this.failDelay(p.index, selectedCardIndex)
+                selectedCardIndex = -1
+              }           
+            }else{
+              cardst[p.index].showIcon = true
+              cardst[p.index].animation = 'animated flipInY'
+
+              selectedCardIndex = p.index
+            }
+
             this.setState({
-              cards: cardst
+              cards: cardst,
+              selectedCardIndex: selectedCardIndex,
+              cardsRight: cardsRight,
+              tries: tries
             })
+
           }
 
 
@@ -117,8 +190,13 @@
             items.push(<Card cardData={this.state.cards[i]} function={onItemClick} />)
           }
           return (
-            <div style={style} onKeyPress={this.handleKeyDown.bind(this)} tabIndex={0}>
-              {items}
+            <div>
+              <div style={{margin: "auto", position: "relative", textAlign: 'center', marginTop: '25px', fontSize: "50px"}}>
+              Intentos: {this.state.tries}
+              </div>
+              <div style={style} tabIndex={0}>
+                {items}
+              </div>
             </div>
           )
         }

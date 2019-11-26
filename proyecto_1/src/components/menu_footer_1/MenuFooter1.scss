@@ -1,0 +1,92 @@
+$icon_bg_color: white;
+
+#menu_footer_1{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+}
+
+#logo_2{
+    height: 50px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+
+#menu_column{
+    display: flex;
+    flex-direction: row;
+    .menu_2{
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        font-size: 17px;
+        margin-left: 26px;
+        margin-right: 26px;
+        li{
+            text-align: left;
+            margin-bottom: 14px;
+            .title{
+                font-size: 13px;
+                font-weight: bold;
+                color: rgb(116, 116, 116);
+            }
+            .button{
+                font-size: 15px;
+                cursor: pointer;
+                font-weight: normal;
+            }
+            .button:hover{
+                color: #1ed760;
+            }
+        }
+    }
+}
+
+
+.menu_3{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    margin-left: 150px;
+    margin-right: 55px;
+    margin-top: 45px;
+    li{
+        position: relative;
+        margin-left: 35px;
+        margin-right: 35px;
+        cursor: pointer;
+        .center{
+            position: absolute;
+        }
+
+        .icon_bg{
+            background-color: white;
+            height: 24px;
+            width: 24px;
+        }
+
+        .icon_fg{
+            border-radius: 50%;
+            background-color: #222326;
+            height: 54px;
+            width: 54px;
+            margin-left: -15px;
+            margin-top: -15px;
+        }
+
+
+
+        .logo{
+            fill: "#222326";
+        }
+    }
+
+    li:hover{
+        .icon_bg{
+            background-color: #1ed760;
+        }
+        
+    }
+}

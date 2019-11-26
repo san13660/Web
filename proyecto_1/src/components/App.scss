@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Mandali|Raleway:800&display=swap');
+
+$black-color: black;
+$white-color: white;
+$grey-color: rgb(136, 136, 136);
+
+body{
+    margin: 0;
+    color: $white-color;
+    background-color: $black-color;
+    font-family: 'Mandali', sans-serif;
+    font-weight: bold;
+}

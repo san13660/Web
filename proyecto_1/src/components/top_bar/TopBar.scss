@@ -1,0 +1,31 @@
+#top_bar{
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+
+  #top_bar_span{
+    height: 100%;
+    width: 1250px;
+    img{
+      height: 64%;
+      margin-top: 15px;
+      margin-left: 50px;
+      float: left;
+      cursor: pointer;
+    }
+  
+    #menu{
+      float: right;
+      margin-top: 12px;
+      margin-right: 33px;
+    }
+  }
+}
