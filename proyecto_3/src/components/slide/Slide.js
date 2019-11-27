@@ -10,20 +10,27 @@ class Slide extends Component {
       title: props.title,
       img: props.img,
       description: props.description,
-      techs: props.techs
+      techs: props.techs,
+      link: props.link
     }
   }
 
   render() {
-    let card_bg_color = 'linear-gradient(rgb(38, 73, 150) -60%, rgb(33, 45, 114) 140%)'
+    let card_bg_color = 'linear-gradient(rgb(38, 73, 150) -50%, rgb(0, 73, 7) 200%)'
 
     if(this.state.type === 'Video Game'){
-      card_bg_color = 'linear-gradient(rgb(0, 73, 7) -60%, rgb(0, 45, 60) 140%)'
+      card_bg_color = 'linear-gradient(rgb(0, 73, 7) -50%, rgb(38, 73, 150) 200%)'
     }
 
     let techs = []
     for (let i=0; i<this.state.techs.length; i++) {
       techs.push(<li>{this.state.techs[i]}</li>)
+    }
+
+    let link= <div className='link_unavailable'>[Link Unavailable]</div>
+    
+    if(this.state.link){
+      link = <a type='button' href={this.state.link} className='link'>See More...</a>
     }
 
     return (
@@ -39,11 +46,12 @@ class Slide extends Component {
           {this.state.description}
         </div>
         <div className='techs_title'>
-          Techs
+          Skills
         </div>
         <ul className='techs'>
           {techs}
         </ul>
+          {link}
       </div>
     );
   }

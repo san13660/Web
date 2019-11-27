@@ -15,7 +15,10 @@ class Info extends Component {
             <u>About me:</u>
         </h3>
         <p>
-            Im a piece of shiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+            I'm 25 years old and persuing a degree in Computer Science. 
+            My preferred programming areas are mobile app and videogame development.
+            I'm currently working as a freelance web and mobile app developer. 
+            The following are some of the proyects I've worked on in the past year.
         </p>
       </div>
     );
