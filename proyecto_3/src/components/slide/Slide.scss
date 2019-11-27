@@ -1,0 +1,47 @@
+.slide{
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 15px;
+    box-sizing:border-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+
+    img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+   
+    .title{
+        text-align: left;
+        font-size: 40px;
+    }
+
+    .type{
+        background-color: goldenrod;
+        text-align: center;
+    }
+
+    .description{
+        text-align: justify;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .techs_title{
+        background-color: rebeccapurple;
+        text-align: center;
+    }
+
+    .techs{
+        background-color: rebeccapurple;
+    }
+
+    
+}
