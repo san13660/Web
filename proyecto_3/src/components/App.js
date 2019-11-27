@@ -8,6 +8,7 @@ import tcom from '../img/tcom.jpg'
 import spotify from '../img/spotify.png'
 import bobomb from '../img/bobomb.png'
 import lo from '../img/lo.png'
+import uc from '../img/uc.png'
 import Contact from './contact/Contact';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <Slide type={'Web'} title={'Spotify Homepage Clone'} img={spotify} description={'A clone of the Spotify\'s homepage for Guatemala.'} techs={['React', 'Babel', 'Webpack', 'Sass', 'Javascript']} link={'http://msdeus.site/13660/proyecto_1/index.html'}/>
           <Slide type={'Video Game'} title={'Last Opportunity'} img={lo} description={'This prototype game is top-down survival game starring NASA\'s rover Opportunity.'} techs={['Unity 2D', 'C#']}/>
           <Slide type={'Web'} title={'CSS Art'} img={bobomb} description={'Mario\'s Bob-omb recreated using only css.'} techs={['CSS', 'HTML']} link={'http://msdeus.site/13660/lab_4/lab_4.html'}/>
+          <Slide type={'Video Game'} title={'Undercooked'} img={uc} description={'This prototype game is a clone of the game Overcooked by Ghost Town Games.'} techs={['Unity 3D', 'Blender', 'C#']} link={'https://san13660.itch.io/undercooked'}/>
         </div>
         <Contact />
       </div>
