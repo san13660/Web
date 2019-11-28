@@ -9,6 +9,7 @@ import spotify from '../img/spotify.png'
 import bobomb from '../img/bobomb.png'
 import lo from '../img/lo.png'
 import uc from '../img/uc.png'
+import calculator from '../img/calculator.png'
 import Contact from './contact/Contact';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
           <Slide type={'Video Game'} title={'Last Opportunity'} img={lo} description={'This prototype game is top-down survival game starring NASA\'s rover Opportunity.'} techs={['Unity 2D', 'C#']}/>
           <Slide type={'Web'} title={'CSS Art'} img={bobomb} description={'Mario\'s Bob-omb recreated using only css.'} techs={['CSS', 'HTML']} link={'http://msdeus.site/13660/lab_4/lab_4.html'}/>
           <Slide type={'Video Game'} title={'Undercooked'} img={uc} description={'This prototype game is a clone of the game Overcooked by Ghost Town Games.'} techs={['Unity 3D', 'Blender', 'C#']} link={'https://san13660.itch.io/undercooked'}/>
+          <Slide type={'Web'} title={'Javascript Calculator'} img={calculator} description={'A simple calculator made with React.'} techs={['React', 'CSS', 'Javascript']} link={'http://msdeus.site/13660/lab_8/index.html'}/>
         </div>
         <Contact />
       </div>
