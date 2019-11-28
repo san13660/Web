@@ -1,9 +1,7 @@
-# Proyecto 1 - Página Web (Spotify)
+# Proyecto 3 - Portafolio
 
 ## Descripción
-Este proyecto consistió en replicar una página web cualquiera (sin usar boiler-plates), prestando especial atención al estilo.
-
-Yo escogí la página de inicio de Spotify para Guatemala.
+Un portafolio con los proyectos que he realizado el último año
 
 ## Tecnologías Usadas
  * React
@@ -14,11 +12,7 @@ Yo escogí la página de inicio de Spotify para Guatemala.
  * Sass-Loader
  * Css-Loader
  * Style-Loader
- * React-SVG-Loader
 
 
  ## Link de demostración
- [http://msdeus.site/13660/proyecto_1/index.html](http://msdeus.site/13660/proyecto_1/index.html)
-
- ## Link de página original
- [https://www.spotify.com/gt/](https://www.spotify.com/gt/)
+ [http://msdeus.site/13660/proyecto_3/index.html](http://msdeus.site/13660/proyecto_3/index.html)

@@ -30,7 +30,11 @@ class Slide extends Component {
     let link= <div className='link_unavailable'>[Link Unavailable]</div>
     
     if(this.state.link){
-      link = <a type='button' href={this.state.link} className='link'>See More...</a>
+      if(this.state.type === 'Video Game'){
+        link = <a type='button' href={this.state.link} className='link'>Learn More...</a>
+      }else{
+        link = <a type='button' href={this.state.link} className='link'>Live Demo</a>
+      }
     }
 
     return (
