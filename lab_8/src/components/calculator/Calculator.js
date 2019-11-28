@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-
 import React, { Component } from 'react';
 import './Calculator.scss'
 import Key from '../key/Key';
@@ -35,6 +31,9 @@ class Calculator extends Component {
       }
       if(currentAction === '/'){
         currentValue = storedValue / currentValue
+      }
+      if(currentAction === '%'){
+        currentValue = storedValue % currentValue
       }
   
       storedValue = 0
@@ -86,7 +85,7 @@ class Calculator extends Component {
         if(!currentValue.toString().includes('.')){
           decimalActivated = false
         }
-      }else if(value === '!'){
+      }else if(value === '+/-'){
         if(currentValue !== 0){
           if(currentValue.toString().includes('-')){
             currentValue = parseFloat(currentValue.toString().substring(1, currentValue.toString().length))
@@ -109,44 +108,42 @@ class Calculator extends Component {
         storedValue,
         decimalActivated
       })
-
-      console.log(currentAction)
     }
     
     return (
-      <div>
+      <div className='calculator'>
         <div className='row'>
           <Display number={this.state.currentValue} />
         </div>
         <div className='row'>
-          <Key className='key' keyWidth={1} value='C' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='CE' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='!' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='/' actionHandler={actionHandler}/>
+          <Key className='key' keyWidth={1} value='C' actionHandler={actionHandler} backgroundColor='#D36135'/>
+          <Key className='key' keyWidth={1} value='CE' actionHandler={actionHandler} backgroundColor='#D36135'/>
+          <Key className='key' keyWidth={1} value='%' actionHandler={actionHandler} backgroundColor='#828C51'/>
+          <Key className='key' keyWidth={1} value='/' actionHandler={actionHandler} backgroundColor='#828C51'/>
         </div>
         <div className='row'>
-          <Key className='key' keyWidth={1} value='7' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='8' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='9' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='*' actionHandler={actionHandler}/>
+          <Key className='key' keyWidth={1} value='7' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='8' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='9' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='*' actionHandler={actionHandler} backgroundColor='#828C51'/>
         </div>
         <div className='row'>
-          <Key className='key' keyWidth={1} value='4' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='5' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='6' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='-' actionHandler={actionHandler}/>
+          <Key className='key' keyWidth={1} value='4' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='5' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='6' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='-' actionHandler={actionHandler} backgroundColor='#828C51'/>
         </div>
         <div className='row'>
-          <Key className='key' keyWidth={1} value='1' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='2' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='3' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='+' actionHandler={actionHandler}/>
+          <Key className='key' keyWidth={1} value='1' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='2' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='3' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='+' actionHandler={actionHandler} backgroundColor='#828C51'/>
         </div>
         <div className='row'>
-          <Key className='key' keyWidth={1} value='%' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='0' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='.' actionHandler={actionHandler}/>
-          <Key className='key' keyWidth={1} value='=' actionHandler={actionHandler}/>
+          <Key className='key' keyWidth={1} value='+/-' actionHandler={actionHandler} backgroundColor='#828C51'/>
+          <Key className='key' keyWidth={1} value='0' actionHandler={actionHandler} backgroundColor='#A6C36F'/>
+          <Key className='key' keyWidth={1} value='.' actionHandler={actionHandler} backgroundColor='#828C51'/>
+          <Key className='key' keyWidth={1} value='=' actionHandler={actionHandler} backgroundColor='#96897B'/>
         </div>
         
       </div>

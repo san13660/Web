@@ -3,8 +3,15 @@
     flex-direction: row;
     justify-content: center;
     vertical-align: middle;
+    width: 400px;
 
     .key{
         margin: 4px;
     }
+}
+
+.calculator{
+    background-color: rgba(24, 33, 82, 0.774);
+    padding: 25px;
+    border-radius: 20px;
 }

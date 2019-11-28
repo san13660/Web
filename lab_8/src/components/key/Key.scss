@@ -1,8 +1,11 @@
 .key {
-	width: 50px;
-	height: 50px;
+	width: 100px;
+	height: 100px;
     margin: 2px 0;
     background-color: aqua;
+
+    font-size: 30px;
+    font-weight: bold;;
 
     display: flex;
     flex-direction: row;
@@ -12,4 +15,5 @@
     align-items: center;
 
     cursor: pointer;
+    user-select: none;
 }
